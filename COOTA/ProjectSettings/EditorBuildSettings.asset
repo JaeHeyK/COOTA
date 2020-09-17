@@ -26,4 +26,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Alley.unity
     guid: 29c889f66c2c18f458332cc47318fc0e
+  - enabled: 1
+    path: Assets/Scenes/LightPuzzle.unity
+    guid: 20f3a1e65a00a2447b34bc2f83eeba88
   m_configObjects: {}
