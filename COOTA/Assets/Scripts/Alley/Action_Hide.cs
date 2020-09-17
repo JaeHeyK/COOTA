@@ -3,18 +3,18 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using UnityEngine;
 
-public class Action_Hide: MonoBehaviour
+public class Action_Hide : MonoBehaviour
 {
     public GameObject player;
     public Animator playerAnimator;
     public Rigidbody2D playerRigidbody2D;
-    public BoxCollider2D playerBoxCollider2D;
     public SpriteRenderer playerRenderer;
+    PlayerMove playerClass;
 
-    private Vector3 hideWay = Vector3.right;
+    private Vector3 hideWay;
     private bool isTouching = false;
     private bool isHiding = false;
-    private float speed = 2f;
+    private float speed = 4f;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,6 +22,8 @@ public class Action_Hide: MonoBehaviour
         playerAnimator = player.GetComponent<Animator>();
         playerRigidbody2D = player.GetComponent<Rigidbody2D>();
         playerRenderer = player.GetComponent<SpriteRenderer>();// Player's properties
+
+        playerClass = player.GetComponent<PlayerMove>();
 
     }
     private void OnTriggerStay2D(Collider2D collision)
@@ -47,13 +49,17 @@ public class Action_Hide: MonoBehaviour
     {
         if (isTouching == true && isHiding == false && Input.GetButtonDown("Fire1"))     // Player starts hide
         {
-            playerRenderer.sortingOrder = -1;
-            playerAnimator.SetBool("IsWalking", true);
+            playerClass.interAction = true;
+            if (transform.position.x > player.transform.position.x)
+                hideWay = Vector3.right;
+            else
+                hideWay = Vector3.left;
+            playerAnimator.SetBool("IsRun", true);
             StartCoroutine(HideInBox());
         }
         else if (isHiding == true && Input.GetButtonDown("Fire1"))                      // Player starts getout
         {
-            playerAnimator.SetBool("IsWalking", true);
+            playerAnimator.SetBool("IsRun", true);
             StartCoroutine(GetOutofBox());
         }
     }
@@ -61,16 +67,25 @@ public class Action_Hide: MonoBehaviour
     IEnumerator HideInBox()
     {
         float time = 0;
-        while (player.transform.position.x > transform.position.x + 0.25f ||
-            player.transform.position.x < transform.position.x - 0.25f )
+        while (player.transform.position.x < transform.position.x + 2.5f)
         {
-            Debug.Log("Box:    " + transform.position.x);
-            Debug.Log("Player: " + player.transform.position.x);
+            playerRenderer.flipX = true;
             yield return new WaitForSeconds(Time.deltaTime);
-            player.transform.Translate(hideWay * speed * Time.deltaTime);
+            player.transform.Translate( Vector3.right * speed * Time.deltaTime);
             //player.transform.localScale = Vector3.one * (1 - time); // Player being small
-            time += Time.deltaTime;                                 
+            time += Time.deltaTime;
         }
+
+        while (player.transform.position.x > transform.position.x )
+        {
+            playerRenderer.flipX = false;
+            yield return new WaitForSeconds(Time.deltaTime);
+            player.transform.Translate(Vector3.left * speed * Time.deltaTime);
+            //player.transform.localScale = Vector3.one * (1 - time); // Player being small
+            time += Time.deltaTime;
+            playerRenderer.sortingOrder = -1;
+        }
+        playerAnimator.SetBool("IsRun", false);
         isHiding = true;
     }
 
@@ -78,21 +93,17 @@ public class Action_Hide: MonoBehaviour
     {
         float time = 0;
         Debug.Log(player.transform.localScale.x);
-        if (hideWay == Vector3.right)
-            playerRenderer.flipX = false;
-        else
-            playerRenderer.flipX = true;
-        while (player.transform.position.x < transform.position.x + 1.75f &&
-            player.transform.position.x > transform.position.x - 1.75f)
+        playerRenderer.flipX = true;
+        while (player.transform.position.x < transform.position.x + 3.0f)
         {
             Debug.Log("커!져라~");
             yield return new WaitForSeconds(Time.deltaTime);
-            player.transform.Translate(-hideWay * speed * Time.deltaTime);
+            player.transform.Translate(Vector3.right * speed * Time.deltaTime);
             //player.transform.localScale = Vector3.one * (time);
             time += Time.deltaTime;
         }
-        player.transform.localScale = Vector3.one;
-        playerRenderer.sortingOrder = 1;
+        playerRenderer.sortingOrder = 8;
         isHiding = false;
+        playerClass.interAction = false;
     }
 }
