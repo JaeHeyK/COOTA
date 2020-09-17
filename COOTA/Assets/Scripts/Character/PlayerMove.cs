@@ -96,34 +96,14 @@ public class PlayerMove : MonoBehaviour
     void ColliderSize()
     {
         if (animator.GetBool("IsRun") == true)
-            ImWalking();
+            CapsuleCollider2D.size = new Vector2(2.1f, 2.4f);
+        /*
         else if (animator.GetBool("IsReady") == true)
-            ImReady();
+            CapsuleCollider2D.size = new Vector2(2.4f, 2.4f);
         else if (animator.GetBool("IsPushing") == true)
-            ImPushing();
+            CapsuleCollider2D.size = new Vector2(2.4f, 2.4f);*/
         else
-            ImStaying();
+            CapsuleCollider2D.size = new Vector2(0.7f, 2.5f);
     }
-
-    void ImWalking()
-    {
-        CapsuleCollider2D.size = new Vector2(2.1f, 2.4f);
-    }
-
-    void ImReady()
-    {
-        CapsuleCollider2D.size = new Vector2(2.4f, 2.4f);
-    }
-
-    void ImPushing()
-    {
-        CapsuleCollider2D.size = new Vector2(2.4f, 2.4f);
-    }
-
-    void ImStaying()
-    {
-        CapsuleCollider2D.size = new Vector2(0.7f, 2.5f);
-    }
-
 
 }
