@@ -71,12 +71,12 @@ public class Interaction_Hide : MonoBehaviour
         {
             playerRenderer.flipX = true;
             yield return new WaitForSeconds(Time.deltaTime);
-            player.transform.Translate( Vector3.right * speed * Time.deltaTime);
+            player.transform.Translate(Vector3.right * speed * Time.deltaTime);
             //player.transform.localScale = Vector3.one * (1 - time); // Player being small
             time += Time.deltaTime;
         }
 
-        while (player.transform.position.x > transform.position.x )
+        while (player.transform.position.x > transform.position.x)
         {
             playerRenderer.flipX = false;
             yield return new WaitForSeconds(Time.deltaTime);

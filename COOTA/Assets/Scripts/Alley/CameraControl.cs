@@ -18,6 +18,6 @@ public class CameraControl : MonoBehaviour
     {
         AT = player.transform;
 
-        transform.position = new Vector3(AT.position.x, AT.position.y + 1.75f , transform.position.z);
+        transform.position = new Vector3(AT.position.x, AT.position.y + 1.75f, transform.position.z);
     }
 }
