@@ -2,19 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Popup : MonoBehaviour
+namespace prevScript
 {
-    public GameObject Target;
-    private void OnTriggerEnter2D(Collider2D collision)
+    public class Popup : MonoBehaviour
     {
-        if (collision.gameObject.tag == "Player")
+        public GameObject Target;
+        private void OnTriggerEnter2D(Collider2D collision)
         {
-            targetsetactive();
+            if (collision.gameObject.tag == "Player")
+            {
+                targetsetactive();
+            }
         }
-    }
-    
-    public void targetsetactive()
-    {
-        Target.SetActive(!Target.active);
+
+        public void targetsetactive()
+        {
+            Target.SetActive(!Target.active);
+        }
     }
 }

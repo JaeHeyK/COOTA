@@ -3,45 +3,48 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class FadeScript : MonoBehaviour
+namespace prevScript
 {
-    public Image Panel;
-   
-    float time = 0f;
-    float F_time = 1f;
-    private void Awake()
+    public class FadeScript : MonoBehaviour
     {
-        Fade();
-    }
-    public void Fade()
-    {
-        StartCoroutine(FadeFlow());
-    }
-    IEnumerator FadeFlow()
-    {
-        Color alpha = Panel.color;
-        //Panel.gameObject.SetActive(true);
-        //time = 0f;
-        //while(alpha.a < 1f)
-        //{
-        //    time += Time.deltaTime / F_time;
-        //    alpha.a = Mathf.Lerp(0, 1, time);
-        //    Panel.color = alpha;
-        //    yield return null;
-        //}
-        time = 0f;
-        yield return new WaitForSeconds(0f);
-        while (alpha.a > 0f)
+        public Image Panel;
+
+        float time = 0f;
+        float F_time = 1f;
+        private void Awake()
         {
-            time += Time.deltaTime / F_time;
-            alpha.a = Mathf.Lerp(1, 0, time);
-            Panel.color = alpha;
-            yield return null;
+            Fade();
         }
-        Panel.gameObject.SetActive(false);
-        yield return null;
+        public void Fade()
+        {
+            StartCoroutine(FadeFlow());
+        }
+        IEnumerator FadeFlow()
+        {
+            Color alpha = Panel.color;
+            //Panel.gameObject.SetActive(true);
+            //time = 0f;
+            //while(alpha.a < 1f)
+            //{
+            //    time += Time.deltaTime / F_time;
+            //    alpha.a = Mathf.Lerp(0, 1, time);
+            //    Panel.color = alpha;
+            //    yield return null;
+            //}
+            time = 0f;
+            yield return new WaitForSeconds(0f);
+            while (alpha.a > 0f)
+            {
+                time += Time.deltaTime / F_time;
+                alpha.a = Mathf.Lerp(1, 0, time);
+                Panel.color = alpha;
+                yield return null;
+            }
+            Panel.gameObject.SetActive(false);
+            yield return null;
+
+        }
+
 
     }
-   
-    
 }

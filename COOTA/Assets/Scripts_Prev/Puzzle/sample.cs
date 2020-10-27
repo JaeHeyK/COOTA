@@ -4,11 +4,14 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class sample : MonoBehaviour
+namespace prevScript
 {
-    // Start is called before the first frame update
-   public void Popup()
+    public class sample : MonoBehaviour
     {
-        SceneManager.LoadScene("NumberPuzzle", LoadSceneMode.Additive);
+        // Start is called before the first frame update
+        public void Popup()
+        {
+            SceneManager.LoadScene("NumberPuzzle", LoadSceneMode.Additive);
+        }
     }
 }
