@@ -41,21 +41,21 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: first
+  - name: Background
     uniqueID: 804593975
     locked: 0
-  - name: second
+  - name: Middleground
     uniqueID: 1732786655
     locked: 0
-  - name: third
-    uniqueID: 3279589899
-    locked: 0
-  - name: fourth
-    uniqueID: 1637158785
-    locked: 0
-  - name: player
+  - name: Player
     uniqueID: 781799721
     locked: 0
-  - name: Scene
-    uniqueID: 956107083
+  - name: Enemy
+    uniqueID: 1058868547
+    locked: 0
+  - name: Foreground
+    uniqueID: 3279589899
+    locked: 0
+  - name: Effect
+    uniqueID: 3744205301
     locked: 0
