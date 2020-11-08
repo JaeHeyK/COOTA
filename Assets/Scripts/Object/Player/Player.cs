@@ -7,7 +7,7 @@ using UnityEngine;
 public class Player : Singleton<Player>
 {
     [Header("Character")]
-    [SerializeField] private Transform trPuppet;
+    [SerializeField] private Transform trPuppet = null;
 
     [Header("Component")]
     [SerializeField] private Animator playerAnimator = null;
@@ -18,8 +18,6 @@ public class Player : Singleton<Player>
     [SerializeField] private float fAccel = 0f;
     [SerializeField] private float fMaxSpeed = 0f;
     [SerializeField] private float minFlipSpeed = 0.1f;
-
-    readonly Vector2 flippedScale = new Vector2(-1, 1);
 
     private int animatorMoveSpeed;
 
@@ -57,6 +55,6 @@ public class Player : Singleton<Player>
         if (playerRigidbody2D.velocity.x > minFlipSpeed)
             trPuppet.localScale = Vector2.one;
         else if (playerRigidbody2D.velocity.x < -minFlipSpeed)
-            trPuppet.localScale = flippedScale;        
+            trPuppet.localScale = Global.flippedScale;        
     }
 }
