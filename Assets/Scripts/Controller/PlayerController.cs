@@ -34,8 +34,7 @@ public class PlayerController : Singleton<PlayerController>
         UpdateMovement();
     }
 
-    // 초기화
-    private void Initialization()
+    private void Initialization() // 초기화
     {
         player = Player.Instance;
         playerCollider2D = GetComponent<Collider2D>();
@@ -44,14 +43,14 @@ public class PlayerController : Singleton<PlayerController>
         onGround = true;
     }
 
-    // 입력을 받아 이동, 점프 명령을 내림
-    private void UpdateMovement()
+    private void UpdateMovement() // 입력을 받아 이동, 점프 명령을 내림
     {
         canMove = !IsInteracting;
 
         if (!canMove)
         { 
-            player.Stop(); return; 
+            player.Stop();
+            return; 
         }
 
         Vector2 moveHorizontal = Vector2.zero;
@@ -71,10 +70,9 @@ public class PlayerController : Singleton<PlayerController>
             player.Jump();
         }
 
-        player.Move(moveHorizontal);
+        player.Move(moveHorizontal);        
     }
-    // 입력을 받아 상호작용 명령을 내림
-    private void UpdateInteraction()
+    private void UpdateInteraction() // 입력을 받아 상호작용 명령을 내림
     {
         if (Input.GetKeyDown(Global.KeyInteract))
         {
@@ -88,15 +86,13 @@ public class PlayerController : Singleton<PlayerController>
 #if MODE_DEBUG
             Debug.Log("Press Cancel Key");
 #endif
-            TerminateInteraction();
+            DisableInteractionObject();
         }
     }
 
-    private void DoInteraction()
+    private void DoInteraction() // 상호작용 수행
     {        
         if (dicInteractionCoroutine.Count == 0 || IsInteracting) return;
-
-        player.Stop();
 
         // 첫 번째 스위치만 작동함
         foreach (var InterActionCoroutine in dicInteractionCoroutine)
@@ -105,24 +101,22 @@ public class PlayerController : Singleton<PlayerController>
             StartCoroutine(InterActionCoroutine.Value);
             break;
         }
-    }
-    // 상호작용 키로 사용할 기능을 관리. 주로 TriggerEnter, Exit로 추가/제거
-    public void AddInteraction(string switchName, IEnumerator InterActionCoroutine)
+    }    
+    public void AddInteraction(string switchName, IEnumerator InterActionCoroutine) // 상호작용 가능한 스위치의 작동범위 내 도달하면 호출됨
     {
         dicInteractionCoroutine.Add(switchName, InterActionCoroutine);
 #if MODE_DEBUG
         Debug.Log("Add Interaction: " + switchName);
 #endif
     }
-    public void RemoveInteraction(string switchName)
+    public void RemoveInteraction(string switchName) // 상호작용 가능한 스위치의 작동범위를 벗어나면 호출됨
     {
         dicInteractionCoroutine.Remove(switchName);
 #if MODE_DEBUG
         Debug.Log("Remove Interaction: " + switchName);
 #endif
     }
-
-    public void SetInteractionObject(GameObject go)
+    public void EnableInteractionObject(GameObject go) // 상호작용할 오브젝트 활성화 ( 주로 퍼즐 )
     {
         if (IsInteracting) return;
 
@@ -132,13 +126,12 @@ public class PlayerController : Singleton<PlayerController>
         Debug.Log("Start Interaction: " + goInteract.name);
 #endif
     }
-
-    private void TerminateInteraction()
+    private void DisableInteractionObject() // 상호작용할 오브젝트 비활성화 ( 주로 퍼즐 )
     {
         if (!IsInteracting) return;
 
 #if MODE_DEBUG
-        Debug.Log("Start Interaction: " + goInteract.name);
+        Debug.Log("Termiante Interaction: " + goInteract.name);
 #endif
         goInteract.SetActive(false);
         goInteract = null;
@@ -149,10 +142,8 @@ public class PlayerController : Singleton<PlayerController>
         if (collision.gameObject.tag == "Ground")
         {
             onGround = true;
-            player.StopHorizontal();
         }
     }
-
     private void OnCollisionExit2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Ground")
