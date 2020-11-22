@@ -12,18 +12,17 @@ public class Player : Singleton<Player>
     [Header("Component")]
     [SerializeField] private Animator playerAnimator = null;
     [SerializeField] private Rigidbody2D playerRigidbody2D = null;
-    [SerializeField] private Collider2D playerCollider2D = null;
 
     [Header("Movement")]
     [SerializeField] private float fAccel = 0f;
     [SerializeField] private float fMaxSpeed = 0f;
     [SerializeField] private float minFlipSpeed = 0.1f;
+    [SerializeField] private float fJumpPower = 0f;
 
     private int animatorMoveSpeed;
 
     private void Start()
     {
-        playerCollider2D = GetComponent<Collider2D>();
         playerRigidbody2D = GetComponent<Rigidbody2D>();
 
         animatorMoveSpeed = Animator.StringToHash("MoveSpeed");
@@ -53,8 +52,30 @@ public class Player : Singleton<Player>
     {
         // 오른쪽 이동 후 정지 시 오른쪽을 바라보게 왼쪽 이동 후 정지 시 왼쪽을 바라보게 설정
         if (playerRigidbody2D.velocity.x > minFlipSpeed)
+        {
             trPuppet.localScale = Vector2.one;
+        }
         else if (playerRigidbody2D.velocity.x < -minFlipSpeed)
-            trPuppet.localScale = Global.flippedScale;        
+        {
+            trPuppet.localScale = Global.flippedScale;
+        }
+    }
+
+    public void Jump()
+    {
+        Debug.Log("Before :" + playerRigidbody2D.velocity);
+        playerRigidbody2D.velocity += Vector2.up * fJumpPower;
+        Debug.Log("After :" + playerRigidbody2D.velocity + ", JumpPower: " + Vector2.up * fJumpPower);
+    }
+    public void Stop()
+    {
+        playerRigidbody2D.velocity = Vector2.zero;
+        Move(Vector2.zero);
+    }
+    public void StopHorizontal()
+    {
+        Vector2 newVelocity = new Vector2(playerRigidbody2D.velocity.x, 0f);
+
+        playerRigidbody2D.velocity = newVelocity;
     }
 }
