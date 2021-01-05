@@ -1,0 +1,15 @@
+0. Project Setting
+  * Project Settings - Grapics - Scriptable Render Pipeline Settings에 새로 생성한 Universal RP Asset(아래의 1.1, 1.2 단계 참조)을 추가함
+  * Scriptable Render Pipeline 적용으로 인해 Quality 설정도 바뀜(일부 설정 숨겨짐)
+
+1. Lighting Basis
+  1. Project에 Create - Rendering - Universal Rendering Pipeline에서  Pipeline Assets, 2D Renderer를 각각 생성해준다.
+  2. Project Settings - Grapics의 Scriptable Render Pipeline Settings에 1단계에서 생성한 Universal RP Asset을 드래그하여 적용한다.
+  3. Universal RP Asset을 연 뒤, Inspector - General - Renderer List에 1단계에서 생성한 2D Renderer를 드래그하여 적용한다.
+  4. 메뉴의 Edit - Render Pipeline - Universal Render Pipeline - 2D Renderer - Upgrade Scene to ... 를 선택하여, 씬 전체가 라이팅의 영향을 받도록 한다. 정상적으로 적용되었을 경우 씬 전체가 검은색으로 변한다.
+  5. 이제 Hierarchy 우클릭 - Light - 2D 에서 원하는 라이팅 오브젝트를 선택하여 추가하고, 편집할 수 있다.
+
+2. Global Light
+  0. Target Sorting Layer를 All로 잡아준다. 나머지 Lighting Object도 마찬가지.
+
+3. Point Light
