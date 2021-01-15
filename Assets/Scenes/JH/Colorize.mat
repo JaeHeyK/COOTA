@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: GrayScale
+  m_Name: Colorize
   m_Shader: {fileID: -6465566751694194690, guid: ea3171d207035427f8afe8978d2dfe46,
     type: 3}
   m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
