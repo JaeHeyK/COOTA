@@ -1,0 +1,26 @@
+Particle System
+-Duration: 2
+-Looping: check
+-Start Delay: 0
+-Start Lifetime: 0.5
+-Start Speed: 0
+-Start Size: 0.5
+-Start Color R:118, G:113, B:110, A:130
+
+Emission
+-Rate over Distance: 10
+
+Shape
+-Shape: Cone
+-Angle: 3
+-Radius: 0.05
+
+Velocity over LifeTime
+-Linear X:2, Y:1, Z:0
+
+Size over lifetime 항목 체크
+
+Renderer
+-Material: ParticlesLit
+
+puppet 프리펩에 자식으로 넣은 후 x:0, y:-1.25, z:0
