@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// Player 클래스를 관리하는 클래스
+// Player 조작을 관리하는 클래스
 public class PlayerController : Singleton<PlayerController>
 {
-    [Header("Player Object")]
-    [SerializeField] private Player player;
+    [Header("Character")]
+    [SerializeField] private CharacterMovement playerMovement;
 
     [Header("Status")]
     [SerializeField] private bool canMove = true;
@@ -36,7 +35,7 @@ public class PlayerController : Singleton<PlayerController>
 
     private void Initialization() // 초기화
     {
-        player = Player.Instance;
+        playerMovement = GetComponent<CharacterMovement>();
         playerCollider2D = GetComponent<Collider2D>();
 
         canMove = true;
@@ -49,7 +48,7 @@ public class PlayerController : Singleton<PlayerController>
 
         if (!canMove)
         { 
-            player.Stop();
+            playerMovement.Stop();
             return; 
         }
 
@@ -67,10 +66,10 @@ public class PlayerController : Singleton<PlayerController>
         if (onGround && Input.GetKey(Global.KeyJump))
         {
             onGround = false;
-            player.Jump();
+            playerMovement.Jump();
         }
 
-        player.Move(moveHorizontal);        
+        playerMovement.Move(moveHorizontal);        
     }
     private void UpdateInteraction() // 입력을 받아 상호작용 명령을 내림
     {
@@ -139,14 +138,14 @@ public class PlayerController : Singleton<PlayerController>
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Ground")
+        if (collision.gameObject.CompareTag("Ground"))
         {
             onGround = true;
         }
     }
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Ground")
+        if (collision.gameObject.CompareTag("Ground"))
         {
             onGround = false;
         }

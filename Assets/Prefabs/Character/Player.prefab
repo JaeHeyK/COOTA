@@ -182,13 +182,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 4906398550840307883}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d6b498bf5b0a3ef45ae24d99df42fb4d, type: 3}
+  m_Script: {fileID: 11500000, guid: a9e58af58943c784fab2c89734c74338, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   trPuppet: {fileID: 4911055745629304398}
-  playerAnimator: {fileID: 3418575787184666998}
-  playerRigidbody2D: {fileID: 0}
-  playerCollider2D: {fileID: 0}
+  characterAudio: {fileID: 0}
+  moveDust: {fileID: 0}
+  characterAnimator: {fileID: 3418575787184666998}
+  characterRigidbody2D: {fileID: 3487073114661246815}
+  groundType: 0
   fAccel: 30
   fMaxSpeed: 4
   minFlipSpeed: 0.1
@@ -205,7 +207,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a083e0bd2c27eae41b1b438fc8b542cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  playerMovement: {fileID: 4906398550840307880}
   canMove: 1
   onGround: 1
   goInteract: {fileID: 0}
+  playerCollider2D: {fileID: 0}
