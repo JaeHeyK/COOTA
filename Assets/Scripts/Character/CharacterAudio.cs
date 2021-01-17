@@ -17,8 +17,7 @@ public class CharacterAudio : MonoBehaviour
 
     public void PlaySteps(GroundType groundType, float speedNormalized)
     {
-        if (groundType == GroundType.None)
-            return;
+        if (groundType == GroundType.None) return;
 
         stepsTimer += Time.fixedDeltaTime * speedNormalized;
 

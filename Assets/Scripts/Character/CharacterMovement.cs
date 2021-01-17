@@ -16,7 +16,7 @@ public class CharacterMovement : MonoBehaviour
     [SerializeField] protected CharacterAudio characterAudio = null;   // 캐릭터 사운드
 
     [Header("Effect")]
-    [SerializeField] protected ParticleSystem moveDust;
+    [SerializeField] protected CharacterEffect characterEffect = null;
 
     [Header("Component")]
     [SerializeField] protected Animator characterAnimator = null;
@@ -45,6 +45,7 @@ public class CharacterMovement : MonoBehaviour
 
         animatorMoveSpeed = Animator.StringToHash("MoveSpeed");
         canMove = true;
+        groundType = GroundType.Dirt;
     }
 
     public virtual void Move(Vector2 movementInput) // 좌우 이동
@@ -69,17 +70,20 @@ public class CharacterMovement : MonoBehaviour
         characterAnimator.SetFloat(animatorMoveSpeed, fNormalizedMoveSpeed);
         
         characterAudio?.PlaySteps(groundType, fNormalizedMoveSpeed);
+        characterEffect?.PlayEffects(groundType, fNormalizedMoveSpeed);
     }
     protected virtual void SetDirection() // 캐릭터 좌우 반전 설정
     {
         // 오른쪽 이동 후 정지 시 오른쪽을 바라보게 왼쪽 이동 후 정지 시 왼쪽을 바라보게 설정
         if (characterRigidbody2D.velocity.x > minFlipSpeed)
         {
-            trPuppet.localScale = Vector2.one;
+            //trPuppet.localScale = Vector2.one;
+            trPuppet.localRotation = Global.normalRotation;
         }
         else if (characterRigidbody2D.velocity.x < -minFlipSpeed)
         {
-            trPuppet.localScale = Global.flippedScale;
+            //trPuppet.localScale = Global.flippedScale;
+            trPuppet.localRotation = Global.flippedRotation;
         }
     }
 
