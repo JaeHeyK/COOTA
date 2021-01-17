@@ -12,36 +12,45 @@ public enum GroundType
 public class CharacterMovement : MonoBehaviour
 {
     [Header("Character")]
-    [SerializeField] private Transform trPuppet = null;              // 캐릭터 본체
-    [SerializeField] private CharacterAudio characterAudio = null;   // 캐릭터 사운드
+    [SerializeField] protected Transform trPuppet = null;              // 캐릭터 본체
+    [SerializeField] protected CharacterAudio characterAudio = null;   // 캐릭터 사운드
 
     [Header("Effect")]
-    [SerializeField] private ParticleSystem moveDust;
+    [SerializeField] protected ParticleSystem moveDust;
 
     [Header("Component")]
-    [SerializeField] private Animator characterAnimator = null;
-    [SerializeField] private Rigidbody2D characterRigidbody2D = null;
+    [SerializeField] protected Animator characterAnimator = null;
+    [SerializeField] protected Rigidbody2D characterRigidbody2D = null;
 
     [Header("Status")]
-    [SerializeField] private GroundType groundType;
+    [SerializeField] protected GroundType groundType;
 
     [Header("Movement")]
-    [SerializeField] private float fAccel = 30f;
-    [SerializeField] private float fMaxSpeed = 4f;
-    [SerializeField] private float minFlipSpeed = 0.1f;
-    [SerializeField] private float fJumpPower = 5f;
+    [SerializeField] protected float fAccel = 30f;
+    [SerializeField] protected float fMaxSpeed = 4f;
+    [SerializeField] protected float minFlipSpeed = 0.1f;
+    [SerializeField] protected float fJumpPower = 5f;
 
     private int animatorMoveSpeed;
+    private bool canMove;
 
     private void Start()
+    {
+        Initialization();
+    }
+
+    protected virtual void Initialization()
     {
         characterRigidbody2D = GetComponent<Rigidbody2D>();
 
         animatorMoveSpeed = Animator.StringToHash("MoveSpeed");
+        canMove = true;
     }
 
-    public void Move(Vector2 movementInput) // 좌우 이동
+    public virtual void Move(Vector2 movementInput) // 좌우 이동
     {
+        if (!canMove) return;
+
         // 이동속도 설정
         Vector2 velocity = characterRigidbody2D.velocity;
 
@@ -58,10 +67,10 @@ public class CharacterMovement : MonoBehaviour
         float fNormalizedMoveSpeed = Mathf.Abs(velocity.x) / fMaxSpeed;
 
         characterAnimator.SetFloat(animatorMoveSpeed, fNormalizedMoveSpeed);
-
+        
         characterAudio?.PlaySteps(groundType, fNormalizedMoveSpeed);
     }
-    private void SetDirection() // 캐릭터 좌우 반전 설정
+    protected virtual void SetDirection() // 캐릭터 좌우 반전 설정
     {
         // 오른쪽 이동 후 정지 시 오른쪽을 바라보게 왼쪽 이동 후 정지 시 왼쪽을 바라보게 설정
         if (characterRigidbody2D.velocity.x > minFlipSpeed)
@@ -74,11 +83,7 @@ public class CharacterMovement : MonoBehaviour
         }
     }
 
-    public void Jump() // 점프
-    {
-        characterRigidbody2D.velocity += Vector2.up * fJumpPower;        
-    }
-    public void Stop() // 정지
+    public virtual void Stop() // 정지
     {
         characterRigidbody2D.velocity = Vector2.zero;
         Move(Vector2.zero);

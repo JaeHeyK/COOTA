@@ -6,22 +6,13 @@ using UnityEngine;
 public class PlayerController : Singleton<PlayerController>
 {
     [Header("Character")]
-    [SerializeField] private CharacterMovement playerMovement;
-
-    [Header("Status")]
-    [SerializeField] private bool canMove = true;
-    [SerializeField] private bool onGround = true;
+    [SerializeField] private PlayerMovement playerMovement;
 
     private bool IsInteracting { get { return goInteract != null; } }
 
     [Header("InteractingObject")]
     [SerializeField] private GameObject goInteract = null;    
     [SerializeField] private Dictionary<string, IEnumerator> dicInteractionCoroutine = new Dictionary<string, IEnumerator>();
-
-    [Header("Component")]
-    [SerializeField] private Collider2D playerCollider2D = null;
-
-    public bool CanMove { private set { this.canMove = value; }  get { return canMove; } }
 
     void Start()
     {
@@ -35,18 +26,12 @@ public class PlayerController : Singleton<PlayerController>
 
     private void Initialization() // 초기화
     {
-        playerMovement = GetComponent<CharacterMovement>();
-        playerCollider2D = GetComponent<Collider2D>();
-
-        canMove = true;
-        onGround = true;
+        playerMovement = GetComponent<PlayerMovement>();
     }
 
     private void UpdateMovement() // 입력을 받아 이동, 점프 명령을 내림
     {
-        canMove = !IsInteracting;
-
-        if (!canMove)
+        if (IsInteracting)
         { 
             playerMovement.Stop();
             return; 
@@ -63,9 +48,8 @@ public class PlayerController : Singleton<PlayerController>
             moveHorizontal.x = 1.0f;
         }
 
-        if (onGround && Input.GetKey(Global.KeyJump))
+        if (Input.GetKey(Global.KeyJump))
         {
-            onGround = false;
             playerMovement.Jump();
         }
 
@@ -134,20 +118,5 @@ public class PlayerController : Singleton<PlayerController>
 #endif
         goInteract.SetActive(false);
         goInteract = null;
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            onGround = true;
-        }
-    }
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            onGround = false;
-        }
     }
 }

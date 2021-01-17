@@ -112,7 +112,7 @@ GameObject:
   - component: {fileID: 4906398550840307881}
   - component: {fileID: 3487073114661246815}
   - component: {fileID: 7442487623895123115}
-  - component: {fileID: 4906398550840307880}
+  - component: {fileID: -8214679290444501777}
   - component: {fileID: 2401816474305282865}
   m_Layer: 8
   m_Name: Player
@@ -173,7 +173,7 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: -0.75}
   m_Size: {x: 1, y: 0.0001}
   m_Direction: 0
---- !u!114 &4906398550840307880
+--- !u!114 &-8214679290444501777
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -182,7 +182,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4906398550840307883}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a9e58af58943c784fab2c89734c74338, type: 3}
+  m_Script: {fileID: 11500000, guid: 5327759e340b02842aafd03dbcb360e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   trPuppet: {fileID: 4911055745629304398}
@@ -207,7 +207,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a083e0bd2c27eae41b1b438fc8b542cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerMovement: {fileID: 4906398550840307880}
+  playerMovement: {fileID: -8214679290444501777}
   canMove: 1
   onGround: 1
   goInteract: {fileID: 0}
