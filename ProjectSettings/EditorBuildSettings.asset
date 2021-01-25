@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/DG/TItle.unity
     guid: a38c2de625e6ccb4e8a98160ca43f0e1
   - enabled: 1
-    path: Assets/Scenes/DG/Game.unity
+    path: Assets/Scenes/DG/BigRoad.unity
     guid: f4ef528666536a143b86c0ed94e8ebc1
+  - enabled: 1
+    path: Assets/Scenes/DG/Playground.unity
+    guid: 4c34340a76383434cb53bfc618f2c7cc
   m_configObjects: {}
