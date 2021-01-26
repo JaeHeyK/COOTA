@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// 플레이어 움직임을 관리하는 클래스
-public class PlayerMovement : CharacterMovement
+// 플레이어 스펙을 명시하는 클래스
+public class Player : Character
 {
     private bool onGround = true;
 
@@ -21,6 +21,7 @@ public class PlayerMovement : CharacterMovement
         if (!OnGround) return;
 
         OnGround = false;
+        groundType = GroundType.None;
         characterRigidbody2D.velocity += Vector2.up * fJumpPower;        
     }
 
@@ -36,6 +37,7 @@ public class PlayerMovement : CharacterMovement
         if (collision.gameObject.CompareTag("Ground"))
         {
             OnGround = true;
+            groundType = GroundType.Dirt;
         }
     }
     private void OnCollisionExit2D(Collision2D collision)
@@ -43,6 +45,7 @@ public class PlayerMovement : CharacterMovement
         if (collision.gameObject.CompareTag("Ground"))
         {
             OnGround = false;
+            groundType = GroundType.None;
         }
     }
 }

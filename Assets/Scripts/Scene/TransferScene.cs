@@ -9,9 +9,6 @@ public class TransferScene : MonoBehaviour
     [SerializeField]
     private string transferSceneName = "";   // 로드 할 씬 이름
 
-    [SerializeField]
-    private Transform trMovePosition = null;  // 캐릭터가 이동할 위치
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag.Equals("Player"))

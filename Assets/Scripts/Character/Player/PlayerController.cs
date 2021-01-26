@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // Player 조작을 관리하는 클래스
+[RequireComponent(typeof(Player))]
 public class PlayerController : Singleton<PlayerController>
 {
     [Header("Character")]
-    [SerializeField] private PlayerMovement playerMovement;
+    [SerializeField] private Player player;
 
     private bool IsInteracting { get { return goInteract != null; } }
 
@@ -26,14 +27,14 @@ public class PlayerController : Singleton<PlayerController>
 
     private void Initialization() // 초기화
     {
-        playerMovement = GetComponent<PlayerMovement>();
+        player = GetComponent<Player>();
     }
 
     private void UpdateMovement() // 입력을 받아 이동, 점프 명령을 내림
     {
         if (IsInteracting)
         { 
-            playerMovement.Stop();
+            player.Stop();
             return; 
         }
 
@@ -50,10 +51,10 @@ public class PlayerController : Singleton<PlayerController>
 
         if (Input.GetKey(Global.KeyJump))
         {
-            playerMovement.Jump();
+            player.Jump();
         }
 
-        playerMovement.Move(moveHorizontal);        
+        player.Move(moveHorizontal);        
     }
     private void UpdateInteraction() // 입력을 받아 상호작용 명령을 내림
     {

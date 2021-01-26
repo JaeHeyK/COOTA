@@ -8,8 +8,8 @@ public enum GroundType
     Dirt,
 }
 
-// 캐릭터 움직임을 관리하는 클래스
-public class CharacterMovement : MonoBehaviour
+// 캐릭터 스펙을 명시하는 클래스
+public class Character : MonoBehaviour
 {
     [Header("Character")]
     [SerializeField] protected Transform trPuppet = null;              // 캐릭터 본체
@@ -32,7 +32,9 @@ public class CharacterMovement : MonoBehaviour
     [SerializeField] protected float fJumpPower = 5f;
 
     private int animatorMoveSpeed;
-    private bool canMove;
+    protected bool canMove;
+    
+    public bool CanMove { get { return canMove; } protected set { canMove = value; } }
 
     private void Start()
     {
@@ -44,13 +46,13 @@ public class CharacterMovement : MonoBehaviour
         characterRigidbody2D = GetComponent<Rigidbody2D>();
 
         animatorMoveSpeed = Animator.StringToHash("MoveSpeed");
-        canMove = true;
+        CanMove = true;
         groundType = GroundType.Dirt;
     }
 
     public virtual void Move(Vector2 movementInput) // 좌우 이동
     {
-        if (!canMove) return;
+        if (!CanMove) return;
 
         // 이동속도 설정
         Vector2 velocity = characterRigidbody2D.velocity;

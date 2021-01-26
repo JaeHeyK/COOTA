@@ -6,9 +6,9 @@ public class CharacterAudio : MonoBehaviour
     [SerializeField] AudioSource jumpingAudioSource = null;
 
     [Header("Audio Clips")]
-    [SerializeField] AudioClip[] dirtSteps = null;
-    [SerializeField] AudioClip dirtLanding = null;
-    [SerializeField] AudioClip jump = null;
+    [SerializeField] AudioClip[] dirtSteps = null;  // 발걸음 사운드
+    [SerializeField] AudioClip dirtLanding = null;  // 착지 사운드
+    [SerializeField] AudioClip jump = null;         // 점프 사운드
 
     [Header("Steps")]
     [SerializeField] float stepsTimeGap = 1f;
@@ -25,7 +25,7 @@ public class CharacterAudio : MonoBehaviour
         {
             var steps = dirtSteps;
             int index = Random.Range(0, steps.Length);
-            footstepsAudioSource.PlayOneShot(steps[index]);
+            footstepsAudioSource?.PlayOneShot(steps[index]);
 
             stepsTimer = 0;
         }
@@ -33,11 +33,11 @@ public class CharacterAudio : MonoBehaviour
 
     public void PlayJump()
     {
-        jumpingAudioSource.PlayOneShot(jump);
+        jumpingAudioSource?.PlayOneShot(jump);
     }
 
     public void PlayLanding(GroundType groundType)
     {
-        jumpingAudioSource.PlayOneShot(dirtLanding);
+        jumpingAudioSource?.PlayOneShot(dirtLanding);
     }
 }
