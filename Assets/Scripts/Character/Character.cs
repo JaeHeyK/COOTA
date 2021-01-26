@@ -28,10 +28,9 @@ public class Character : MonoBehaviour
     [Header("Movement")]
     [SerializeField] protected float fAccel = 30f;
     [SerializeField] protected float fMaxSpeed = 4f;
-    [SerializeField] protected float minFlipSpeed = 0.1f;
-    [SerializeField] protected float fJumpPower = 5f;
+    [SerializeField] protected float minFlipSpeed = 0.1f;    
 
-    private int animatorMoveSpeed;
+    protected int animatorMoveSpeed;
     protected bool canMove;
     
     public bool CanMove { get { return canMove; } protected set { canMove = value; } }

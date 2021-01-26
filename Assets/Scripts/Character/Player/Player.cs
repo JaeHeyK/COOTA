@@ -5,6 +5,8 @@ using UnityEngine;
 // 플레이어 스펙을 명시하는 클래스
 public class Player : Character
 {
+    [SerializeField] protected float fJumpPower = 5f;
+
     private bool onGround = true;
 
     public bool OnGround { get { return onGround; } private set { this.onGround = value; } }
