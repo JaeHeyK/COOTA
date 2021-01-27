@@ -24,15 +24,17 @@ public class Character : MonoBehaviour
 
     [Header("Status")]
     [SerializeField] protected GroundType groundType;
+    [SerializeField] protected bool isAlive;
 
     [Header("Movement")]
     [SerializeField] protected float fAccel = 30f;
     [SerializeField] protected float fMaxSpeed = 4f;
-    [SerializeField] protected float minFlipSpeed = 0.1f;    
+    [SerializeField] protected float fMinFlipSpeed = 0.1f;    
 
     protected int animatorMoveSpeed;
     protected bool canMove;
     
+    public bool IsAlive { get { return isAlive; } protected set { isAlive = value; } }
     public bool CanMove { get { return canMove; } protected set { canMove = value; } }
 
     private void Start()
@@ -42,11 +44,16 @@ public class Character : MonoBehaviour
 
     protected virtual void Initialization()
     {
+        characterAnimator = GetComponent<Animator>();
         characterRigidbody2D = GetComponent<Rigidbody2D>();
 
         animatorMoveSpeed = Animator.StringToHash("MoveSpeed");
+
+        IsAlive = true;
         CanMove = true;
         groundType = GroundType.Dirt;
+
+        characterAnimator.SetFloat(animatorMoveSpeed, 0f);
     }
 
     public virtual void Move(Vector2 movementInput) // 좌우 이동
@@ -76,12 +83,12 @@ public class Character : MonoBehaviour
     protected virtual void SetDirection() // 캐릭터 좌우 반전 설정
     {
         // 오른쪽 이동 후 정지 시 오른쪽을 바라보게 왼쪽 이동 후 정지 시 왼쪽을 바라보게 설정
-        if (characterRigidbody2D.velocity.x > minFlipSpeed)
+        if (characterRigidbody2D.velocity.x > fMinFlipSpeed)
         {
             //trPuppet.localScale = Vector2.one;
             trPuppet.localRotation = Global.normalRotation;
         }
-        else if (characterRigidbody2D.velocity.x < -minFlipSpeed)
+        else if (characterRigidbody2D.velocity.x < -fMinFlipSpeed)
         {
             //trPuppet.localScale = Global.flippedScale;
             trPuppet.localRotation = Global.flippedRotation;
