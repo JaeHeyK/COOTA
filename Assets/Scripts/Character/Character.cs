@@ -44,7 +44,7 @@ public class Character : MonoBehaviour
 
     protected virtual void Initialization()
     {
-        characterAnimator = GetComponent<Animator>();
+        characterAnimator = trPuppet.GetComponent<Animator>();
         characterRigidbody2D = GetComponent<Rigidbody2D>();
 
         animatorMoveSpeed = Animator.StringToHash("MoveSpeed");

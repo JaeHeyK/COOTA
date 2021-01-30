@@ -27,7 +27,12 @@ public class PlayerController : Singleton<PlayerController>
 
     private void Initialization() // 초기화
     {
+        // 플레이어가 여럿 있는지 확인하는 용도 (임시)
+        var playerController = PlayerController.Instance;
+
         player = GetComponent<Player>();
+
+        DontDestroyOnLoad(this.gameObject);
     }
 
     private void UpdateMovement() // 입력을 받아 이동, 점프 명령을 내림
@@ -74,8 +79,8 @@ public class PlayerController : Singleton<PlayerController>
         }
     }
 
-    private void DoInteraction() // 상호작용 수행
-    {        
+    private void DoInteraction() // 오브젝트 상호작용
+    {
         if (dicInteractionCoroutine.Count == 0 || IsInteracting) return;
 
         // 첫 번째 스위치만 작동함
@@ -85,7 +90,7 @@ public class PlayerController : Singleton<PlayerController>
             StartCoroutine(InterActionCoroutine.Value);
             break;
         }
-    }    
+    }
     public void AddInteraction(string switchName, IEnumerator InterActionCoroutine) // 상호작용 가능한 스위치의 작동범위 내 도달하면 호출됨
     {
         dicInteractionCoroutine.Add(switchName, InterActionCoroutine);
@@ -100,7 +105,7 @@ public class PlayerController : Singleton<PlayerController>
         Debug.Log("Remove Interaction: " + switchName);
 #endif
     }
-    public void EnableInteractionObject(GameObject go) // 상호작용할 오브젝트 활성화 ( 주로 퍼즐 )
+    public void EnableInteractionObject(GameObject go) // 상호작용할 오브젝트 활성화
     {
         if (IsInteracting) return;
 
@@ -110,7 +115,7 @@ public class PlayerController : Singleton<PlayerController>
         Debug.Log("Start Interaction: " + goInteract.name);
 #endif
     }
-    private void DisableInteractionObject() // 상호작용할 오브젝트 비활성화 ( 주로 퍼즐 )
+    private void DisableInteractionObject() // 상호작용할 오브젝트 비활성화
     {
         if (!IsInteracting) return;
 

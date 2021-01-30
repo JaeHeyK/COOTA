@@ -10,33 +10,28 @@ public abstract class Singleton<T> : MonoBehaviour where T : MonoBehaviour
     public static T Instance
     {
         get
-        {
-            if (instance == null)
-            {                
-                T[] s = FindObjectsOfType<T>();
+        {             
+            T[] s = FindObjectsOfType<T>();
 
-                // 찾은 오브젝트가 1개 이상일 때 에러 메세지를 띄움
-                if (s.Length > 1)
+            // 찾은 오브젝트가 1개 이상일 때 에러 메세지를 띄움
+            if (s.Length > 1)
+            {
+                for(int i = 1; i < s.Length; i++)
                 {
-                    string log = typeof(T).ToString() + " has one more instance. :";
-
-                    for(int i = 0; i < s.Length; i++)
-                    {
-                        log += " " + s[i].name;
-                    }
-
-                    Debug.LogWarning(log);
-                }
-                // 해당 타입의 오브젝트가 없는 경우 null return
-                else if (s.Length == 0)
-                {
-                    Debug.LogError(typeof(T).ToString() + " is not exist.");
-
-                    return null;
+                    Destroy(s[i].gameObject);
                 }
 
-                instance = s[0];
+                Debug.LogWarning(typeof(T).ToString() + " has one more instance.");
             }
+            // 해당 타입의 오브젝트가 없는 경우 null return
+            else if (s.Length == 0)
+            {
+                Debug.LogError(typeof(T).ToString() + " is not exist.");
+
+                return null;
+            }
+
+            instance = s[0];
 
             return instance;
         }

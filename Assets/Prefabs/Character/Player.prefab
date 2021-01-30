@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3418575787184666998}
   m_Layer: 8
   m_Name: puppet
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -193,9 +193,10 @@ MonoBehaviour:
   characterAnimator: {fileID: 3418575787184666998}
   characterRigidbody2D: {fileID: 3487073114661246815}
   groundType: 0
+  isAlive: 0
   fAccel: 30
   fMaxSpeed: 4
-  minFlipSpeed: 0.1
+  fMinFlipSpeed: 0.1
   fJumpPower: 5
 --- !u!114 &2401816474305282865
 MonoBehaviour:
@@ -209,7 +210,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a083e0bd2c27eae41b1b438fc8b542cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerMovement: {fileID: -8214679290444501777}
+  player: {fileID: 0}
   goInteract: {fileID: 0}
 --- !u!114 &7622664832034389768
 MonoBehaviour:
@@ -224,7 +225,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   particleMoveEffect: {fileID: 2577370494987176508}
-  stepsTimeGap: 1
 --- !u!1 &7770438126932200249
 GameObject:
   m_ObjectHideFlags: 0
