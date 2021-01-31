@@ -11,7 +11,6 @@ public class Enemy : Character
     [Header("Attack")]
     [SerializeField] protected float fAtkRange = 1f;
 
-    protected int animatorIsDead;
     protected int animatorAttack;
 
     public bool HasTarget { get { return (target != null && target.IsAlive); } }
@@ -20,24 +19,19 @@ public class Enemy : Character
     {
         base.Initialization();
 
-        animatorIsDead = Animator.StringToHash("IsDead");
         animatorAttack = Animator.StringToHash("Attack");
 
-        characterAnimator.SetBool(animatorIsDead, false);
-        
         FindTarget();
     }
 
-    // 플레이어 탐색
-    protected virtual bool FindTarget()
+    protected virtual bool FindTarget()   // 플레이어 탐색
     {
         target = FindObjectOfType<Player>();
 
         return HasTarget;
     }
 
-    // 플레이어 추격
-    public void ChasePlayer()
+    public void ChasePlayer() // 플레이어 추격
     {
         if (!FindTarget()) return;
 
@@ -48,8 +42,7 @@ public class Enemy : Character
         }
     }
 
-    // 추격 루틴
-    protected virtual void ChaseRoutine()
+    protected virtual void ChaseRoutine() // 추격 루틴
     {
         if (!HasTarget) return;
 
@@ -59,8 +52,7 @@ public class Enemy : Character
         Move(dir);
     }
 
-    // 공격 조건 파악
-    protected virtual bool CheckAttack()
+    protected virtual bool CheckAttack()  // 공격 조건 파악
     {
         if (!HasTarget) return false;
 
@@ -70,16 +62,14 @@ public class Enemy : Character
         return (dist.CompareTo(fAtkRange) < 0);
     }
 
-    // 플레이어 공격
-    public void Attack()
+    public void Attack() // 플레이어 공격
     {
         if (!HasTarget) return;
 
         characterAnimator.SetTrigger(animatorAttack);
     }
 
-    // 적 제거
-    public virtual void Die()
+    public virtual void Die() // 사망
     {
         if (!IsAlive) return;
 

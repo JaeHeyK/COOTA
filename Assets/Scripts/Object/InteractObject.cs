@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // Observer 패턴을 이용하여 PlayerController에게 상호작용 함수를 전달함
-public class InteractSwitch : MonoBehaviour
+public class InteractObject : MonoBehaviour
 {
     protected PlayerController playerController;
 

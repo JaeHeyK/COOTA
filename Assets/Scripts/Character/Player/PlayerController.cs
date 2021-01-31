@@ -36,7 +36,7 @@ public class PlayerController : Singleton<PlayerController>
 
     private void UpdateMovement() // 입력을 받아 이동, 점프 명령을 내림
     {
-        if (IsInteracting)
+        if (IsInteracting || !player.CanMove)
         { 
             player.Stop();
             return; 
@@ -62,6 +62,12 @@ public class PlayerController : Singleton<PlayerController>
     }
     private void UpdateInteraction() // 입력을 받아 상호작용 명령을 내림
     {
+        if (!player.IsAlive)
+        {
+            DisableInteractionObject();
+            return;
+        }
+
         if (Input.GetKeyDown(Global.KeyInteract))
         {
 #if MODE_DEBUG

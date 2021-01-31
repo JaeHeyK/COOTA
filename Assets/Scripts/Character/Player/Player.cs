@@ -7,15 +7,19 @@ public class Player : Character
 {
     [SerializeField] protected float fJumpPower = 5f;
 
-    private bool onGround = true;
+    [SerializeField] protected bool isHiding = false;
+    [SerializeField] protected bool onGround = true;
 
-    public bool OnGround { get { return onGround; } private set { this.onGround = value; } }
+    public bool IsHiding { get { return isHiding; } protected set { this.isHiding = value; } }
+    public bool OnGround { get { return onGround; } protected set { this.onGround = value; } }
+    public override bool CanMove { get { return base.CanMove && !IsHiding; } protected set { base.CanMove = value; } }
 
     protected override void Initialization()
     {
         base.Initialization();
 
         OnGround = true;
+        IsHiding = false;
     }
 
     public void Jump() // 점프
@@ -25,13 +29,6 @@ public class Player : Character
         OnGround = false;
         groundType = GroundType.None;
         characterRigidbody2D.velocity += Vector2.up * fJumpPower;        
-    }
-
-    public override void Stop()
-    {
-        base.Stop();
-        OnGround = false;
-        characterRigidbody2D.velocity = Vector2.down;        
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

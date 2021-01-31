@@ -14,8 +14,6 @@ public class Character : MonoBehaviour
     [Header("Character")]
     [SerializeField] protected Transform trPuppet = null;              // 캐릭터 본체
     [SerializeField] protected CharacterAudio characterAudio = null;   // 캐릭터 사운드
-
-    [Header("Effect")]
     [SerializeField] protected CharacterEffect characterEffect = null;
 
     [Header("Component")]
@@ -32,10 +30,11 @@ public class Character : MonoBehaviour
     [SerializeField] protected float fMinFlipSpeed = 0.1f;    
 
     protected int animatorMoveSpeed;
+    protected int animatorIsDead;
     protected bool canMove;
     
     public bool IsAlive { get { return isAlive; } protected set { isAlive = value; } }
-    public bool CanMove { get { return canMove; } protected set { canMove = value; } }
+    public virtual bool CanMove { get { return IsAlive && canMove; } protected set { canMove = value; } }
 
     private void Start()
     {
@@ -48,12 +47,14 @@ public class Character : MonoBehaviour
         characterRigidbody2D = GetComponent<Rigidbody2D>();
 
         animatorMoveSpeed = Animator.StringToHash("MoveSpeed");
+        animatorIsDead = Animator.StringToHash("IsDead");
 
         IsAlive = true;
         CanMove = true;
         groundType = GroundType.Dirt;
 
         characterAnimator.SetFloat(animatorMoveSpeed, 0f);
+        characterAnimator.SetBool(animatorIsDead, false);
     }
 
     public virtual void Move(Vector2 movementInput) // 좌우 이동
@@ -95,9 +96,9 @@ public class Character : MonoBehaviour
         }
     }
 
-    public virtual void Stop() // 정지
+    public void Stop() // 정지
     {
-        characterRigidbody2D.velocity = Vector2.zero;
+        characterRigidbody2D.velocity = new Vector2(0f, characterRigidbody2D.velocity.y);
         Move(Vector2.zero);
     }
 }

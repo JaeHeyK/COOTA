@@ -15,8 +15,7 @@ public class CharacterEffect : MonoBehaviour
         particleMoveEffect?.Stop();
     }
 
-    public void PlayEffects(GroundType groundType,
-                            float speedNormalized)
+    public void PlayEffects(GroundType groundType, float speedNormalized)
     {
         if (groundType == GroundType.None || particleMoveEffect is null) return;
 
