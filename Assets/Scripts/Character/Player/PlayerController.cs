@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,9 +12,9 @@ public class PlayerController : Singleton<PlayerController>
 
     private bool IsInteracting { get { return goInteract != null; } }
 
-    [Header("InteractingObject")]
+    [Header("InteractObject")]
     [SerializeField] private GameObject goInteract = null;    
-    [SerializeField] private Dictionary<string, IEnumerator> dicInteractionCoroutine = new Dictionary<string, IEnumerator>();
+    [SerializeField] private Dictionary<string, Action> dicInteractionDelegate = new Dictionary<string, Action>();
 
     void Start()
     {
@@ -28,6 +29,7 @@ public class PlayerController : Singleton<PlayerController>
     private void Initialization() // 초기화
     {
         player = GetComponent<Player>();
+        dicInteractionDelegate.Clear();
 
         DontDestroyOnLoad(this.gameObject);
     }
@@ -78,26 +80,25 @@ public class PlayerController : Singleton<PlayerController>
 
     private void DoInteraction() // 오브젝트 상호작용
     {
-        if (dicInteractionCoroutine.Count == 0 || IsInteracting) return;
+        if (dicInteractionDelegate.Count == 0 || IsInteracting) return;
 
         // 첫 번째 스위치만 작동함
-        foreach (var InterActionCoroutine in dicInteractionCoroutine)
+        foreach (var InterActionCoroutine in dicInteractionDelegate)
         {
-            Debug.Log(InterActionCoroutine.Value);
-            StartCoroutine(InterActionCoroutine.Value);
+            InterActionCoroutine.Value();
             break;
         }
     }
-    public void AddInteraction(string switchName, IEnumerator InterActionCoroutine) // 상호작용 가능한 스위치의 작동범위 내 도달하면 호출됨
+    public void AddInteraction(string switchName, Action InterActionCoroutine) // 상호작용 가능한 스위치의 작동범위 내 도달하면 호출됨
     {
-        dicInteractionCoroutine.Add(switchName, InterActionCoroutine);
+        dicInteractionDelegate.Add(switchName, InterActionCoroutine);
 #if MODE_DEBUG
         Debug.Log("Add Interaction: " + switchName);
 #endif
     }
     public void RemoveInteraction(string switchName) // 상호작용 가능한 스위치의 작동범위를 벗어나면 호출됨
     {
-        dicInteractionCoroutine.Remove(switchName);
+        dicInteractionDelegate.Remove(switchName);
 #if MODE_DEBUG
         Debug.Log("Remove Interaction: " + switchName);
 #endif

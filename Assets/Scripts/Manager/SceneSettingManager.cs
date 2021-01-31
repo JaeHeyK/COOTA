@@ -8,7 +8,7 @@ using Cinemachine;
 public class SceneSettingManager : Singleton<SceneSettingManager>
 {
     [SerializeField]
-    private PlayerController player;
+    private PlayerController playerController;
 
     [SerializeField]
     private CinemachineVirtualCamera[] cameras;
@@ -32,7 +32,7 @@ public class SceneSettingManager : Singleton<SceneSettingManager>
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        player = PlayerController.Instance;
+        playerController = PlayerController.Instance;
 
         SetCamera();
     }
@@ -46,13 +46,13 @@ public class SceneSettingManager : Singleton<SceneSettingManager>
     // 카메라 Folow 타겟 설정
     public void SetCamera()
     {
-        if (player is null) return;
+        if (playerController is null) return;
 
         FindCameras();
 
         for (int i = 0; i < cameras.Length; i++)
         {
-            cameras[i].Follow = player.gameObject.transform;
+            cameras[i].Follow = playerController.gameObject.transform;
         }
     }
     // 카메라 Folow 타겟 설정

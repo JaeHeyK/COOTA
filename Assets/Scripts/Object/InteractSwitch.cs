@@ -5,6 +5,8 @@ using UnityEngine;
 // Observer 패턴을 이용하여 PlayerController에게 상호작용 함수를 전달함
 public class InteractSwitch : MonoBehaviour
 {
+    protected PlayerController playerController;
+
     [Header("Collider")]
     [SerializeField] private BoxCollider2D interactCollider2D = null;
 
@@ -20,14 +22,15 @@ public class InteractSwitch : MonoBehaviour
     void Start()
     {
         interactCollider2D = GetComponent<BoxCollider2D>();
+        playerController = PlayerController.Instance;
     }
     
     private void OnTriggerEnter2D(Collider2D collision)
     {
         // 플레이어가 스위치 작동 영역에 진입했을 시
-        if (collision.tag == "Player")
+        if (collision.CompareTag("Player"))
         {
-            PlayerController.Instance.AddInteraction(this.name, InteractEvent());
+            playerController.AddInteraction(this.name, InteractEvent);
             ShowNavigation(true);
             ShowSwitchHighlight(true);
         }
@@ -35,19 +38,19 @@ public class InteractSwitch : MonoBehaviour
     private void OnTriggerExit2D(Collider2D collision)
     {
         // 플레이어가 스위치 작동 영역을 벗어났을 시
-        if (collision.tag == "Player")
+        if (collision.CompareTag("Player"))
         {
-            PlayerController.Instance.RemoveInteraction(this.name);
+            playerController.RemoveInteraction(this.name);
             ShowNavigation(false);
             ShowSwitchHighlight(false);
         }
     }
 
-    public virtual IEnumerator InteractEvent() // 스위치 작동
+    public virtual void InteractEvent() // 스위치 작동
     {
-        if (!HasInteractObject) yield break;
+        if (!HasInteractObject) return;
 
-        PlayerController.Instance.EnableInteractionObject(goInteract);
+        playerController.EnableInteractionObject(goInteract);
     }
     private void ShowNavigation(bool active) // 안내 키 표시
     {

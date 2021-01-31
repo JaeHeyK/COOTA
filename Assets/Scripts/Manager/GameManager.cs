@@ -12,7 +12,7 @@ public class GameManager : Singleton<GameManager>
     [SerializeField]
     private GameObject playerPrefab = null;
     [SerializeField]
-    private PlayerController player = null;
+    private PlayerController playerController = null;
 
     // Start is called before the first frame update
     void Start()
@@ -24,19 +24,19 @@ public class GameManager : Singleton<GameManager>
     // 현재 활성화 된 씬 내에 플레이어 오브젝트가 있는지 확인
     private void CheckPlayerInScene()
     {
-        player = PlayerController.Instance;
+        playerController = PlayerController.Instance;
 
         // 없다면 0, 0 위치에 오브젝트 생성 (임시)
-        if (player is null)
+        if (playerController is null)
         {
-            player = Instantiate(playerPrefab).GetComponent<PlayerController>();
+            playerController = Instantiate(playerPrefab).GetComponent<PlayerController>();
         }
     }
 
     private void Initialization() // 초기화
     {
         sceneSettingManager = SceneSettingManager.Instance;
-        sceneSettingManager.SetCamera(player.gameObject);
+        sceneSettingManager.SetCamera(playerController.gameObject);
     }
 
     public void PauseGame()  // 게임 일시정지
