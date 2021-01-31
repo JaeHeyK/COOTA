@@ -8,16 +8,13 @@ using Cinemachine;
 public class SceneSettingManager : Singleton<SceneSettingManager>
 {
     [SerializeField]
-    private Player player;
+    private PlayerController player;
 
     [SerializeField]
     private CinemachineVirtualCamera[] cameras;
 
     private void OnEnable()
     {
-        player = FindObjectOfType<Player>();
-        FindCameras();
-
         SceneManager.sceneLoaded += OnSceneLoaded;
         SceneManager.sceneUnloaded += OnSceneUnloaded;
     }
@@ -35,7 +32,7 @@ public class SceneSettingManager : Singleton<SceneSettingManager>
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        player = FindObjectOfType<Player>();
+        player = PlayerController.Instance;
 
         SetCamera();
     }

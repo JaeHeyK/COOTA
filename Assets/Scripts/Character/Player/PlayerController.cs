@@ -27,9 +27,6 @@ public class PlayerController : Singleton<PlayerController>
 
     private void Initialization() // 초기화
     {
-        // 플레이어가 여럿 있는지 확인하는 용도 (임시)
-        var playerController = PlayerController.Instance;
-
         player = GetComponent<Player>();
 
         DontDestroyOnLoad(this.gameObject);
