@@ -9,9 +9,9 @@ public class PlayerController : Singleton<PlayerController>
 {
     [Header("Character")]
     [SerializeField] private Player player;
-
+ 
     private bool IsInteracting { get { return goInteract != null; } }
-
+    
     [Header("InteractObject")]
     [SerializeField] private GameObject goInteract = null;    
     [SerializeField] private Dictionary<string, Action> dicInteractionDelegate = new Dictionary<string, Action>();
@@ -37,20 +37,28 @@ public class PlayerController : Singleton<PlayerController>
     private void UpdateMovement() // 입력을 받아 이동, 점프 명령을 내림
     {
         if (IsInteracting || !player.CanMove)
-        { 
+        {
             player.Stop();
-            return; 
+            return;
         }
 
-        Vector2 moveHorizontal = Vector2.zero;
+        Vector2 moveVector = Vector2.zero;
 
-        if (Input.GetKey(Global.KeyLeft))
+        if (Input.GetKey(Global.KeyRight))
         {
-            moveHorizontal.x = -1.0f;
+            moveVector.x = 1.0f;
+        }        
+        else if (Input.GetKey(Global.KeyLeft))
+        {
+            moveVector.x = -1.0f;
         }
-        else if (Input.GetKey(Global.KeyRight))
+        else if (Input.GetKey(Global.KeyUp))
         {
-            moveHorizontal.x = 1.0f;
+            moveVector.y = 1.0f;
+        }
+        else if (Input.GetKey(Global.KeyDown))
+        {
+            moveVector.y = -1.0f;
         }
 
         if (Input.GetKey(Global.KeyJump))
@@ -58,7 +66,7 @@ public class PlayerController : Singleton<PlayerController>
             player.Jump();
         }
 
-        player.Move(moveHorizontal);        
+        player.Move(moveVector);
     }
     private void UpdateInteraction() // 입력을 받아 상호작용 명령을 내림
     {

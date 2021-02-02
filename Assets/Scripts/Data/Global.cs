@@ -12,6 +12,8 @@ public static class Global
     public readonly static KeyCode KeyJump = KeyCode.Space;
     public readonly static KeyCode KeyLeft = KeyCode.LeftArrow;
     public readonly static KeyCode KeyRight = KeyCode.RightArrow;
+    public readonly static KeyCode KeyUp = KeyCode.UpArrow;
+    public readonly static KeyCode KeyDown = KeyCode.DownArrow;
     public readonly static KeyCode KeyInteract = KeyCode.LeftControl;
     public readonly static KeyCode KeyCancel = KeyCode.Escape;
     #endregion

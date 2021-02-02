@@ -19,6 +19,7 @@ public class Character : MonoBehaviour
     [Header("Component")]
     [SerializeField] protected Animator characterAnimator = null;
     [SerializeField] protected Rigidbody2D characterRigidbody2D = null;
+    [SerializeField] protected Collider2D characterCollider2D = null;
 
     [Header("Status")]
     [SerializeField] protected GroundType groundType;
@@ -45,6 +46,7 @@ public class Character : MonoBehaviour
     {
         characterAnimator = trPuppet.GetComponent<Animator>();
         characterRigidbody2D = GetComponent<Rigidbody2D>();
+        characterCollider2D = GetComponent<Collider2D>();
 
         animatorMoveSpeed = Animator.StringToHash("MoveSpeed");
         animatorIsDead = Animator.StringToHash("IsDead");
@@ -64,7 +66,7 @@ public class Character : MonoBehaviour
         // 이동속도 설정
         Vector2 velocity = characterRigidbody2D.velocity;
 
-        velocity += movementInput * fAccel * Time.fixedDeltaTime;
+        velocity += new Vector2(movementInput.x, 0) * fAccel * Time.fixedDeltaTime;
 
         // 이동속도 최대치 설정
         velocity.x = Mathf.Clamp(velocity.x, -fMaxSpeed, fMaxSpeed);
