@@ -26,8 +26,7 @@ public class Character : MonoBehaviour
     [SerializeField] protected bool isAlive;
 
     [Header("Movement")]
-    [SerializeField] protected float fAccel = 30f;
-    [SerializeField] protected float fMaxSpeed = 4f;
+    [SerializeField] protected float fMoveSpeed = 4f;
     [SerializeField] protected float fMinFlipSpeed = 0.1f;    
 
     protected int animatorMoveSpeed;
@@ -64,19 +63,12 @@ public class Character : MonoBehaviour
         if (!CanMove) return;
 
         // 이동속도 설정
-        Vector2 velocity = characterRigidbody2D.velocity;
-
-        velocity += new Vector2(movementInput.x, 0) * fAccel * Time.fixedDeltaTime;
-
-        // 이동속도 최대치 설정
-        velocity.x = Mathf.Clamp(velocity.x, -fMaxSpeed, fMaxSpeed);
-
-        characterRigidbody2D.velocity = velocity;
+        characterRigidbody2D.velocity = new Vector2(movementInput.x * fMoveSpeed, characterRigidbody2D.velocity.y);
 
         SetDirection();
 
         // 애니메이터 재생 속도 설정
-        float fNormalizedMoveSpeed = Mathf.Abs(velocity.x) / fMaxSpeed;
+        float fNormalizedMoveSpeed = Mathf.Abs(characterRigidbody2D.velocity.x) / fMoveSpeed;
 
         characterAnimator.SetFloat(animatorMoveSpeed, fNormalizedMoveSpeed);
         

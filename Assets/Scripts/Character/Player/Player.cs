@@ -12,15 +12,18 @@ public class Player : Character
 
     [SerializeField] protected bool isHiding;
     [SerializeField] protected bool isClimbing;
-    [SerializeField] protected bool onGround;
+    [SerializeField] protected bool isJumping;
+    [SerializeField] protected bool canClimb;
+    [SerializeField] protected bool onTopLadder;
+    [SerializeField] protected bool onBotLadder;
 
     public bool IsHiding { get { return isHiding; } protected set { this.isHiding = value; } }
     public bool IsClimbing { get { return isClimbing; } protected set { this.isClimbing = value; } }
-    public bool OnGround { get { return onGround; } protected set { this.onGround = value; } }
+    public bool IsJumping { get { return isJumping; } protected set { this.isJumping = value; } }
     public override bool CanMove { get { return base.CanMove && !IsHiding; } protected set { base.CanMove = value; } }
-    public bool CanClimb { get; set; }
-    public bool OnTopLadder { get; set; }
-    public bool OnBotLadder { get; set; }
+    public bool CanClimb { get { return canClimb; } set { this.canClimb = value; } }
+    public bool OnTopLadder { get { return onTopLadder; } set { this.onTopLadder = value; } }
+    public bool OnBotLadder { get { return onBotLadder; } set { this.onBotLadder = value; } }
 
     protected override void Initialization()
     {
@@ -31,7 +34,7 @@ public class Player : Character
         CanClimb = false;
         OnTopLadder = false;
         OnBotLadder = false;
-        OnGround = true;
+        IsJumping = false;
     }
 
     public override void Move(Vector2 movementInput)
@@ -43,73 +46,86 @@ public class Player : Character
 
     public void Jump() // 점프
     {
-        if (!OnGround || IsClimbing) return;
+        if (IsJumping || IsClimbing) return;
 
-        OnGround = false;
+        IsJumping = true;
         groundType = GroundType.None;
-        characterRigidbody2D.velocity += Vector2.up * fJumpPower;        
+        characterRigidbody2D.AddForce(Vector2.up * fJumpPower, ForceMode2D.Impulse);
+        characterRigidbody2D.gravityScale = 1f;
     }
 
     public void Climb(Vector2 climbInput)  // 사다리 오르내리기
     {
+        // 오르내릴 수 있는지 확인
         if (!CanClimb)
         {
             IsClimbing = false;
+            characterRigidbody2D.gravityScale = 1f;
+            characterCollider2D.isTrigger = false;
             return;
         }
 
+        
+        // 사다리 윗 파트
         if (OnTopLadder)
         {
+            // 위층 -> 아래층
             if (climbInput.y.CompareTo(0f) < 0)
             {
-                isClimbing = true;
-            }
-            else if (climbInput.y.Equals(0f))
-            {
-                characterRigidbody2D.velocity = new Vector2(climbInput.x, 0f);
+                IsClimbing = true;
+                characterCollider2D.isTrigger = true;
             }
         }
+        // 사다리 아래 파트
         else if (OnBotLadder)
         {
             if (climbInput.y.CompareTo(0f) < 0)
-            {
-                isClimbing = false;
+            {   
+                characterCollider2D.isTrigger = false;
             }
             else if (climbInput.y.CompareTo(0f) > 0)
             {
-                isClimbing = true;
+                IsClimbing = true;
+                characterCollider2D.isTrigger = true;
             }
-            else
+        }
+        // 사다리 가운데 파트
+        else if (CanClimb)
+        {
+            if (!climbInput.y.Equals(0f))
             {
-                characterRigidbody2D.velocity = new Vector2(climbInput.x, 0f);
+                IsClimbing = true;
+                characterCollider2D.isTrigger = true;
             }
         }
 
         if (!IsClimbing) return;
 
-        characterRigidbody2D.velocity = climbInput * fClimbSpeed;
-        
-        characterAnimator.SetFloat(animatorMoveSpeed, 0f);
+        characterRigidbody2D.gravityScale = 0f;
+
+        characterRigidbody2D.velocity = new Vector2(characterRigidbody2D.velocity.x, climbInput.y * fClimbSpeed);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Ground"))
         {
-            OnGround = true;
-            groundType = GroundType.Dirt;
+            if (!IsClimbing)
+            {
+                IsJumping = false;
+                groundType = GroundType.Dirt;
+            }
         }
     }
     private void OnCollisionExit2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Ground"))
         {
-            OnGround = false;
             groundType = GroundType.None;
         }
     }
-    public void OnLadder(bool bOnLadder)
+    public void SetColliderTrigger(bool bTrigger)
     {
-        characterCollider2D.isTrigger = bOnLadder;
+        characterCollider2D.isTrigger = bTrigger;
     }
 }

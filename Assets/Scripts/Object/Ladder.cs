@@ -17,7 +17,6 @@ public class Ladder : MonoBehaviour
             {
                 case LadderPart.complete:
                     player.CanClimb = true;
-                    player.OnLadder(true);
                     break;
                 case LadderPart.bottom:
                     player.OnBotLadder = true;
@@ -41,7 +40,6 @@ public class Ladder : MonoBehaviour
             {
                 case LadderPart.complete:
                     player.CanClimb = false;
-                    player.OnLadder(false);
                     break;
                 case LadderPart.bottom:
                     player.OnBotLadder = false;
@@ -53,5 +51,13 @@ public class Ladder : MonoBehaviour
                     break;
             }
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        var collider = GetComponent<BoxCollider2D>();
+
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawWireCube(transform.position + (Vector3)collider.offset, collider.size);
     }
 }

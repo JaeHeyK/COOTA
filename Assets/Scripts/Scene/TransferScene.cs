@@ -21,4 +21,12 @@ public class TransferScene : MonoBehaviour
             collision.transform.position = startPosition;
         }
     }
+
+    private void OnDrawGizmos()
+    {
+        var collider = GetComponent<BoxCollider2D>();
+
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireCube(transform.position + (Vector3)collider.offset, collider.size);
+    }
 }

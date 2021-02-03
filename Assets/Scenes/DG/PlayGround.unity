@@ -1441,7 +1441,7 @@ GameObject:
   - component: {fileID: 2032181877}
   - component: {fileID: 2032181876}
   m_Layer: 0
-  m_Name: toPlayground
+  m_Name: toHideout
   m_TagString: Untagged
   m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -1473,8 +1473,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c63370c5146c344e98b5307436c6fff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  transferSceneName: BigRoad
-  startPosition: {x: 20, y: -4}
+  transferSceneName: Hideout
+  startPosition: {x: -0.5, y: -4}
 --- !u!61 &2032181877
 BoxCollider2D:
   m_ObjectHideFlags: 0
