@@ -37,9 +37,13 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
     private void Awake()
     {
         // 오브젝트 하나 외에 전부 제거
-        if (FindObjectsOfType(typeof(Singleton<T>)).Length > 1)
+        if (instance != this)
         {
             DestroyImmediate(this.gameObject);
+        }
+        else
+        {
+            instance = this.gameObject.GetComponent<T>();
         }
     }
 }

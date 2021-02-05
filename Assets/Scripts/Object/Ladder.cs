@@ -7,6 +7,7 @@ public class Ladder : MonoBehaviour
     private enum LadderPart { complete, bottom, top };
     [SerializeField] LadderPart part = LadderPart.complete;
 
+    // 플레이어가 있는 사다리 위치에 따라 플레이어 상태 변경
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))

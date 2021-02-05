@@ -35,10 +35,13 @@ public class Enemy : Character
     {
         if (!FindTarget()) return;
 
-        ChaseRoutine();
         if (CheckAttack())
         {
             Attack();
+        }
+        else
+        {
+            ChaseRoutine();
         }
     }
 
@@ -67,15 +70,5 @@ public class Enemy : Character
         if (!HasTarget) return;
 
         characterAnimator.SetTrigger(animatorAttack);
-    }
-
-    public virtual void Die() // 사망
-    {
-        if (!IsAlive) return;
-
-        characterAnimator.SetBool(animatorIsDead, true);
-        IsAlive = false;
-
-        Destroy(this.gameObject, 1f);
     }
 }

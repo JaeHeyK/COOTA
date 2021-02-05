@@ -15,7 +15,7 @@ public class CharacterAudio : MonoBehaviour
 
     private float stepsTimer;
 
-    public void PlaySteps(GroundType groundType, float speedNormalized)
+    public void PlaySteps(GroundType groundType, float speedNormalized) // 발걸음 사운드 재생
     {
         if (groundType == GroundType.None) return;
 
@@ -31,12 +31,12 @@ public class CharacterAudio : MonoBehaviour
         }
     }
 
-    public void PlayJump()
+    public void PlayJump() // 점프 사운드 재생
     {
         jumpingAudioSource?.PlayOneShot(jump);
     }
 
-    public void PlayLanding(GroundType groundType)
+    public void PlayLanding(GroundType groundType) // 착지 사운드 재생
     {
         jumpingAudioSource?.PlayOneShot(dirtLanding);
     }

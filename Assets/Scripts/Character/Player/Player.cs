@@ -64,7 +64,6 @@ public class Player : Character
             characterCollider2D.isTrigger = false;
             return;
         }
-
         
         // 사다리 윗 파트
         if (OnTopLadder)
@@ -102,30 +101,19 @@ public class Player : Character
         if (!IsClimbing) return;
 
         characterRigidbody2D.gravityScale = 0f;
-
         characterRigidbody2D.velocity = new Vector2(characterRigidbody2D.velocity.x, climbInput.y * fClimbSpeed);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    public void EnterGround(GroundType type)
     {
-        if (collision.gameObject.CompareTag("Ground"))
+        if (!IsClimbing)
         {
-            if (!IsClimbing)
-            {
-                IsJumping = false;
-                groundType = GroundType.Dirt;
-            }
+            IsJumping = false;
+            groundType = type;
         }
     }
-    private void OnCollisionExit2D(Collision2D collision)
+    public void ExitGround()
     {
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            groundType = GroundType.None;
-        }
-    }
-    public void SetColliderTrigger(bool bTrigger)
-    {
-        characterCollider2D.isTrigger = bTrigger;
+        groundType = GroundType.None;
     }
 }

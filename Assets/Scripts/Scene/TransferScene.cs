@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class TransferScene : MonoBehaviour
 {
@@ -15,10 +14,11 @@ public class TransferScene : MonoBehaviour
     {
         if (collision.tag.Equals("Player"))
         {
-            SceneManager.LoadScene(transferSceneName);
-
-            // 해당 씬 시작위치로 이동
-            collision.transform.position = startPosition;
+            if (CustomSceneManager.Instance.LoadScene(transferSceneName))
+            {
+                // 해당 씬 시작위치로 이동
+                collision.transform.position = startPosition;
+            }
         }
     }
 

@@ -2,12 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum GroundType
-{
-    None,
-    Dirt,
-}
-
 // 캐릭터 스펙을 명시하는 클래스
 public class Character : MonoBehaviour
 {
@@ -75,9 +69,10 @@ public class Character : MonoBehaviour
         characterAudio?.PlaySteps(groundType, fNormalizedMoveSpeed);
         characterEffect?.PlayEffects(groundType, fNormalizedMoveSpeed);
     }
-    protected virtual void SetDirection() // 캐릭터 좌우 반전 설정
+    protected virtual void SetDirection() // 캐릭터 좌우 반전
     {
         // 오른쪽 이동 후 정지 시 오른쪽을 바라보게 왼쪽 이동 후 정지 시 왼쪽을 바라보게 설정
+        // 캐릭터 움직이는 효과(파티클) 때문에 Rotation으로 Flip 설정 [임시]
         if (characterRigidbody2D.velocity.x > fMinFlipSpeed)
         {
             //trPuppet.localScale = Vector2.one;
@@ -94,5 +89,13 @@ public class Character : MonoBehaviour
     {
         characterRigidbody2D.velocity = new Vector2(0f, characterRigidbody2D.velocity.y);
         Move(Vector2.zero);
+    }
+
+    public virtual void Die() // 사망
+    {
+        if (!IsAlive) return;
+
+        characterAnimator.SetBool(animatorIsDead, true);
+        IsAlive = false;
     }
 }
