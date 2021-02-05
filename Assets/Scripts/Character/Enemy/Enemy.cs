@@ -24,13 +24,6 @@ public class Enemy : Character
         FindTarget();
     }
 
-    protected virtual bool FindTarget()   // 플레이어 탐색
-    {
-        target = FindObjectOfType<Player>();
-
-        return HasTarget;
-    }
-
     public void ChasePlayer() // 플레이어 추격
     {
         if (!FindTarget()) return;
@@ -45,15 +38,12 @@ public class Enemy : Character
         }
     }
 
-    protected virtual void ChaseRoutine() // 추격 루틴
+    protected virtual bool FindTarget()   // 플레이어 탐색
     {
-        if (!HasTarget) return;
+        target = FindObjectOfType<Player>();
 
-        // X축 이동
-        var dir = new Vector2(target.transform.position.x - transform.position.x, 0).normalized;
-
-        Move(dir);
-    }
+        return HasTarget;
+    }    
 
     protected virtual bool CheckAttack()  // 공격 조건 파악
     {
@@ -65,10 +55,20 @@ public class Enemy : Character
         return (dist.CompareTo(fAtkRange) < 0);
     }
 
-    public void Attack() // 플레이어 공격
+    protected void Attack() // 플레이어 공격
     {
         if (!HasTarget) return;
 
         characterAnimator.SetTrigger(animatorAttack);
+    }
+
+    protected virtual void ChaseRoutine() // 추격 루틴
+    {
+        if (!HasTarget) return;
+
+        // X축 이동
+        var dir = new Vector2(target.transform.position.x - transform.position.x, 0).normalized;
+
+        Move(dir);
     }
 }
