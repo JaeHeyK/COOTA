@@ -4,7 +4,7 @@
 // Singleton은 하나만 존재해야 한다는 원칙을 준수해야 한다.
 public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 {
-    private static T instance;
+    private static T instance = null;
 
     // Singleton 변수는 이 프로퍼티를 통해 참조한다.
     public static T Instance
@@ -37,7 +37,7 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
     private void Awake()
     {
         // 오브젝트 하나 외에 전부 제거
-        if (instance != this)
+        if (instance != null && instance != this)
         {
             DestroyImmediate(this.gameObject);
         }
