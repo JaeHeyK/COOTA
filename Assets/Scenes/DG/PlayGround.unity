@@ -1059,7 +1059,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61dfde1af3b4b0c4985d80d60fc30187, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerController: {fileID: 0}
   followCameras: []
   scenes: []
 --- !u!1 &1686573949
@@ -1489,7 +1488,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   transferSceneName: Hideout
-  startPosition: {x: -0.5, y: -4}
+  startPosition: {x: -13, y: -14}
 --- !u!61 &2032181877
 BoxCollider2D:
   m_ObjectHideFlags: 0

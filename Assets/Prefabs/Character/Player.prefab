@@ -192,12 +192,19 @@ MonoBehaviour:
   characterEffect: {fileID: 7622664832034389768}
   characterAnimator: {fileID: 3418575787184666998}
   characterRigidbody2D: {fileID: 3487073114661246815}
+  characterCollider2D: {fileID: 0}
   groundType: 0
   isAlive: 0
-  fAccel: 30
-  fMaxSpeed: 4
+  fMoveSpeed: 4
   fMinFlipSpeed: 0.1
-  fJumpPower: 5
+  fJumpPower: 3
+  fClimbSpeed: 3
+  isHiding: 0
+  isClimbing: 0
+  isJumping: 0
+  canClimb: 0
+  onTopLadder: 0
+  onBotLadder: 0
 --- !u!114 &2401816474305282865
 MonoBehaviour:
   m_ObjectHideFlags: 0
