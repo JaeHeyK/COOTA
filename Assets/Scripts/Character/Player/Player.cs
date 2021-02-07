@@ -54,7 +54,7 @@ public class Player : Character
         characterRigidbody2D.gravityScale = 1f;
     }
 
-    public void Climb(Vector2 climbInput)  // 사다리 오르내리기
+    protected void Climb(Vector2 climbInput)  // 사다리 오르내리기
     {
         // 오르내릴 수 있는지 확인
         if (!CanClimb)
