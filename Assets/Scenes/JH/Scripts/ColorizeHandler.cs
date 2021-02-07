@@ -5,6 +5,7 @@ using UnityEngine.Playables;
 [RequireComponent(typeof(PlayableDirector))]
 public class ColorizeHandler : MonoBehaviour
 {
+    public bool repeatable = false;
     void Start()
     {
     }
@@ -14,7 +15,10 @@ public class ColorizeHandler : MonoBehaviour
         if (enabled && other.CompareTag("Player"))
         {
             GetComponent<PlayableDirector>().Play();
-            enabled = false;
+            if(!repeatable)
+            {
+              enabled = false;
+            }
         }
     }
 }
