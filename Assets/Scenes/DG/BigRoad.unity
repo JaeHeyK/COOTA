@@ -206,7 +206,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 11404637}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 11.065474, y: -0.3691311, z: -10}
+  m_LocalPosition: {x: 13.7321415, y: -0.3691311, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 164391425}
@@ -2080,7 +2080,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   transferSceneName: Playground
-  startPosition: {x: -9.5, y: -4}
+  startPosition: {x: -26, y: -4}
 --- !u!1 &1317878878
 GameObject:
   m_ObjectHideFlags: 0
