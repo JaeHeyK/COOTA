@@ -6,12 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/DG/BigRoad.unity
+    path: Assets/Scenes/BigRoad.unity
     guid: f4ef528666536a143b86c0ed94e8ebc1
   - enabled: 1
-    path: Assets/Scenes/DG/Playground.unity
+    path: Assets/Scenes/PlayGround.unity
     guid: 4c34340a76383434cb53bfc618f2c7cc
   - enabled: 1
-    path: Assets/Scenes/JH/Scenes/Hideout.unity
+    path: Assets/Scenes/Hideout.unity
     guid: aa33c0112a885ae47a130752d297bbdc
   m_configObjects: {}
