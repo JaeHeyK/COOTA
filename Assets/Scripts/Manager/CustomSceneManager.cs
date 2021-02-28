@@ -25,7 +25,7 @@ public class CustomSceneManager : Singleton<CustomSceneManager>
         // 씬 리스트 저장
         for (int i = 0; i < SceneManager.sceneCountInBuildSettings; i++)
         {
-            string path = SceneUtility.GetScenePathByBuildIndex(i);
+            string path = SceneUtility.GetScenePathByBuildIndex(i).ToLower();
 
             int slash = path.LastIndexOf('/') + 1;
             int dot = path.LastIndexOf('.');
@@ -49,6 +49,8 @@ public class CustomSceneManager : Singleton<CustomSceneManager>
 
     public bool LoadScene(string name) // 씬 전환
     {
+        name = name.ToLower();
+
         if (scenes.Contains(name))
         {
             SceneManager.LoadScene(name);
