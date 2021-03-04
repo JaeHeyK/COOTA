@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/Scenes/PlayGround.unity
     guid: 4c34340a76383434cb53bfc618f2c7cc
   - enabled: 1
+    path: Assets/Scenes/Alley.unity
+    guid: e5be1de3eaa7d2e44ada39148a0c4fd8
+  - enabled: 1
     path: Assets/Scenes/Hideout.unity
     guid: aa33c0112a885ae47a130752d297bbdc
   m_configObjects: {}
