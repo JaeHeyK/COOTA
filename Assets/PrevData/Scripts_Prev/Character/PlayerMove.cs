@@ -41,8 +41,6 @@ namespace prevScript
                 Move();
                 Jump();
             }
-            else
-                ;
         }
 
         // Update is called once per frame

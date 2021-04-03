@@ -8,6 +8,8 @@ public class Patroll : Enemy
     protected override void Initialization()
     {
         base.Initialization();
+
+        DontDestroyOnLoad(this.gameObject);
     }
 
     protected override bool FindTarget()   // 플레이어 탐색
@@ -25,10 +27,11 @@ public class Patroll : Enemy
 
     protected override bool CheckAttack() // 공격 조건 파악
     {
-        return false;
+        return base.CheckAttack();
     }
 
     public override void Die() // 사망
     {
     }
+
 }

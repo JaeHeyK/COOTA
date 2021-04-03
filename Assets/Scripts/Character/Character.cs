@@ -8,10 +8,10 @@ public class Character : MonoBehaviour
     [Header("Character")]
     [SerializeField] protected Transform trPuppet = null;              // 캐릭터 본체
     [SerializeField] protected CharacterAudio characterAudio = null;   // 캐릭터 사운드
-    [SerializeField] protected CharacterEffect characterEffect = null;
+    [SerializeField] protected CharacterEffect characterEffect = null; //캐릭터 파티클 효과
 
     [Header("Component")]
-    [SerializeField] protected Animator characterAnimator = null;
+    [SerializeField] protected Animator characterAnimator = null; //애니메이터
     [SerializeField] protected Rigidbody2D characterRigidbody2D = null;
     [SerializeField] protected Collider2D characterCollider2D = null;
 
