@@ -30,6 +30,8 @@ public class Character : MonoBehaviour
     public bool IsAlive { get { return isAlive; } protected set { isAlive = value; } }
     public virtual bool CanMove { get { return IsAlive && canMove; } protected set { canMove = value; } }
 
+    public Transform TrPuppet { get {return trPuppet; } }
+
     private void Start()
     {
         Initialization();

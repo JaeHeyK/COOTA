@@ -11,12 +11,14 @@ public class Enemy : Character
     [SerializeField] protected Player target = null;
 
     [Header("Attack")]
-    [SerializeField] protected float fAtkRange = 0.1f;
-    [SerializeField] protected float fChsRange = 1f;
+    [SerializeField] protected float fAtkRange = 1f;
+    [SerializeField] protected float fChsRange = 2f;
+    [SerializeField] protected float speed = 200f;
 
     [Header("Status")]
     [SerializeField] protected bool isChasing;
     [SerializeField] protected bool isAttacking;
+
 
     protected int animatorIdle;
     protected int animatorAttack;
@@ -73,10 +75,36 @@ public class Enemy : Character
         return (dist.CompareTo(fAtkRange) < 0);
     }
 
-    protected void Attack() // 플레이어 공격
+    public override void Move(Vector2 direction)
     {
-        Stop();
-        characterAnimator.SetTrigger(animatorAttack);
+        characterAnimator.SetBool(animatorAttack,false);
+        characterAnimator.SetBool(animatorChase, true);
+        
+        Vector2 force = direction * speed * Time.deltaTime;
+
+        if(direction.x != 1f && direction.x != 0f && direction.x != -1f) {
+            if(direction.x >= 0f)
+            {
+                trPuppet.localScale = new Vector3(-1f, 1f, 1f);
+            }
+            else if (direction.x <= 0f) {
+                trPuppet.localScale = new Vector3(1f, 1f, 1f);
+            }
+        }
+        
+        characterRigidbody2D.AddForce(force);
+    }
+
+    public void Attack() // 플레이어 공격
+    {
+        Move(Vector2.zero);
+        characterAnimator.SetBool(animatorAttack,true);
+    }
+
+    public void Idle()
+    {
+        Move(Vector2.zero);
+        characterAnimator.SetBool(animatorChase, false);
     }
     protected virtual bool CheckChase()  // 추격 여부 판단
     {

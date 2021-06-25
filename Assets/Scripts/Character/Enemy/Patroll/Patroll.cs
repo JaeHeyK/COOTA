@@ -9,7 +9,7 @@ public class Patroll : Enemy
     {
         base.Initialization();
 
-        DontDestroyOnLoad(this.gameObject);
+        //DontDestroyOnLoad(this.gameObject);
     }
 
     protected override bool FindTarget()   // 플레이어 탐색

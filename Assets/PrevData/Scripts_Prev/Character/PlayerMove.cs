@@ -68,8 +68,6 @@ namespace prevScript
                 spriteRenderer.flipX = true;
             else if (moveVelocity == Vector3.left)
                 spriteRenderer.flipX = false;
-            else
-                ;
             //IsWalking
             if (moveVelocity == Vector3.zero)
                 animator.SetBool("IsRun", false);
